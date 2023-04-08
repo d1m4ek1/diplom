@@ -1,0 +1,202 @@
+/* Base */
+@media screen and (max-width: 770px) {
+  .container {
+    width: 90%;
+  }
+
+  .wrapper > .container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .wrapper > .container > div {
+    margin-bottom: 1.5rem;
+    margin-right: 0;
+  }
+
+  .wrapper > .container > div,
+  .wrapper > .container > aside {
+    width: 100%;
+  }
+
+  button,
+  input {
+    width: 100%;
+  }
+}
+
+/* Header */
+@media screen and (max-width: 770px) {
+  .header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    padding-top: 0;
+  }
+
+  .navigation {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-bottom: 5px;
+    position: relative;
+  }
+
+  .custom_list.navigation__list_item {
+    padding-right: 0;
+  }
+
+  .navigation__list_items {
+    display: none;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+  .show_list {
+    -webkit-animation-name: showList;
+    animation-name: showList;
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+  }
+
+  .navigation__list_item:after {
+    display: none;
+  }
+
+  .burger-nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 5px 10px !important;
+    margin: 2px 5px;
+  }
+
+  .navigation__list_items > li {
+    border-bottom: 1px solid #555;
+    width: 100%;
+  }
+
+  .navigation__list_items > li {
+    background-color: #162f68;
+  }
+
+  .navigation__list_items > li > a {
+    width: 100%;
+    font-size: 14px;
+    line-height: 22.4px;
+    padding: 7px 15px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    white-space: normal;
+  }
+
+  .navigation__list_items > li > a:after {
+    content: "";
+  }
+
+  .adaptive_arrow {
+    width: 30px;
+    height: 24px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border: 1px solid #888;
+    margin-right: 5px;
+  }
+
+  .adaptive_arrow:after {
+    content: "\f078";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    font-size: 8px;
+  }
+}
+
+/* Sub navigation */
+@media screen and (max-width: 770px) {
+  .sub_navigation__list_items {
+    display: none;
+    position: relative;
+    width: 100%;
+    padding-left: 20px !important;
+    background-color: #162f68;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sub_navigation__list_items > li > a {
+    width: 100%;
+    font-size: 14px;
+    line-height: 22.4px;
+    padding: 5px 10px !important;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    white-space: normal;
+  }
+
+  .sub_navigation__list_items > li:hover > a {
+    background-color: unset !important;
+  }
+}
+
+/* Sub nested nav */
+@media screen and (max-width: 770px) {
+  .sub_nested_nav_list > ul {
+    left: 0;
+    top: 0;
+    -webkit-animation: none;
+    animation: none;
+  }
+
+  .sub_nested_nav_list span {
+    margin-right: 10px;
+  }
+
+  .sub_nested_nav_list:hover > ul {
+    -webkit-animation: none;
+    animation: none;
+    visibility: visible;
+  }
+
+  .sub_nested_nav_list > a:after {
+    display: none;
+  }
+}

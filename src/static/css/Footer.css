@@ -1,0 +1,22 @@
+.footer {
+  background-color: #10142a;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.footer__info {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer__info > p:first-child {
+  margin-bottom: 5px;
+}
+
+.footer__info > p,
+.footer__info > p > a {
+  color: white;
+}

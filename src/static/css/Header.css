@@ -1,0 +1,235 @@
+.header {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-top: 20px;
+  background-color: #f1f1f1;
+  margin-bottom: 24px;
+}
+
+.header ul {
+  margin: unset;
+}
+
+.logo {
+  padding: 15px 0;
+}
+
+.navigation {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.navigation__list_items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.navigation__list_items li {
+  list-style: none;
+}
+
+.navigation__list_item {
+  position: relative;
+}
+
+.custom_list.navigation__list_item {
+  padding-right: 15px;
+}
+
+.navigation__list_item > a {
+  display: block;
+  font-size: 1rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.navigation__list_item:first-child > a {
+  padding: 20px 20px 20px 0;
+}
+
+.navigation__list_item:not(:first-child) > a {
+  padding: 20px;
+}
+
+.navigation__list_item:not(:last-child):after {
+  background: #fff none repeat scroll 0 0;
+  content: "";
+  height: 25px;
+  margin-bottom: 12.5px;
+  opacity: 0.2;
+  position: absolute;
+  right: 0;
+  top: 30%;
+  width: 1px;
+}
+
+.custom_list {
+  position: relative;
+}
+
+.custom_list:hover > .sub_navigation__list_items {
+  opacity: 1;
+  visibility: unset;
+}
+
+.custom_list > a {
+  position: relative;
+}
+
+.custom_list > a::after {
+  position: absolute;
+  top: 23px;
+  right: 2px;
+  background: transparent;
+  z-index: 99999;
+  content: "\f078";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 8px;
+}
+
+.sub_navigation__list_items {
+  position: absolute;
+  width: 250px;
+  z-index: 9;
+  -webkit-transition: 0.9s;
+  -o-transition: 0.9s;
+  transition: 0.9s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.sub_navigation__list_items > li > a {
+  display: block;
+  color: white;
+  padding: 15px;
+}
+
+.sub_navigation__list_items > li {
+  position: relative;
+  width: 100%;
+}
+
+.sub_navigation__list_items > li:not(:last-child):after {
+  content: "";
+  position: absolute;
+  bottom: auto;
+  width: 100%;
+  height: 1px;
+  top: auto;
+  margin-top: 0;
+  display: block;
+  opacity: 0.1;
+  background: #fff none repeat scroll 0 0;
+  margin-bottom: 12.5px;
+  right: 0;
+}
+
+.sub_navigation__list_items > li:hover > a {
+  background-color: #1b6db5;
+}
+
+.not_hover:hover {
+  background-color: unset !important;
+}
+
+.not_hover:hover > a {
+  background-color: unset !important;
+}
+
+.sub_nested_nav_list {
+  position: relative;
+}
+
+.sub_nested_nav_list > a::after {
+  position: absolute;
+  right: 12px;
+  top: 15px;
+  background: transparent;
+  z-index: 99999;
+  content: "\f078";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 8px;
+}
+
+.sub_nested_nav_list > ul {
+  left: 100%;
+  top: 20px;
+  -webkit-animation-name: subNestedListFocusEnd;
+  animation-name: subNestedListFocusEnd;
+  -webkit-animation-duration: 0.9s;
+  animation-duration: 0.9s;
+}
+
+.sub_nested_nav_list:hover > ul {
+  opacity: 1;
+  visibility: unset;
+  -webkit-animation-name: subNestedListFocusUp;
+  animation-name: subNestedListFocusUp;
+  -webkit-animation-duration: 0.9s;
+  animation-duration: 0.9s;
+}
+
+.burger-nav,
+.adaptive_arrow {
+  display: none;
+}
+
+@-webkit-keyframes subNestedListFocusUp {
+  from {
+    top: 60px;
+  }
+  to {
+    top: 20px;
+  }
+}
+
+@keyframes subNestedListFocusUp {
+  from {
+    top: 60px;
+  }
+  to {
+    top: 20px;
+  }
+}
+
+@-webkit-keyframes subNestedListFocusEnd {
+  from {
+    top: 20px;
+  }
+  to {
+    top: 60px;
+  }
+}
+
+@keyframes subNestedListFocusEnd {
+  from {
+    top: 20px;
+  }
+  to {
+    top: 60px;
+  }
+}

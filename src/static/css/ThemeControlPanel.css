@@ -1,0 +1,95 @@
+.theme_control_panel {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  background-color: #d6d6d6;
+  position: fixed;
+  z-index: 10;
+}
+
+.theme_control_panel > div {
+  display: flex;
+  align-items: last baseline;
+  height: 28px;
+  margin-top: 6px;
+}
+
+.theme_control_panel > div:not(:last-child) {
+  margin-right: 20px;
+}
+
+.theme_control_panel > div > p {
+  color: black;
+  margin-bottom: 0;
+  height: min-content;
+  height: 28px;
+}
+
+.theme_control_panel > div:first-child > a {
+  height: 28px;
+  width: 10px;
+  line-height: 28px;
+  font-weight: 400;
+  margin: 0 3px;
+  color: black;
+}
+
+.theme_control_panel > div > a:hover {
+  text-decoration: underline;
+}
+
+.theme_control_panel > div:first-child > a:nth-child(2) {
+  font-size: 16px;
+}
+
+.theme_control_panel > div:first-child > a:nth-child(3) {
+  font-size: 20px;
+}
+
+.theme_control_panel > div:first-child > a:nth-child(4) {
+  font-size: 24px;
+}
+
+.theme_control_panel > div:first-child > a:last-child {
+  font-size: 28px;
+}
+
+.theme_control_panel > div:nth-child(2) > a:nth-child(2),
+.theme_control_panel > div:nth-child(2) > a:nth-child(3),
+.theme_control_panel > div:nth-child(2) > a:last-child {
+  margin: 0 3px;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+}
+
+.theme_control_panel > div:nth-child(2) > a:nth-child(2) {
+  background-color: #fff;
+  color: #000;
+}
+
+.theme_control_panel > div:nth-child(2) > a:nth-child(3) {
+  background-color: #000;
+  color: #fff;
+}
+
+.theme_control_panel > div:nth-child(2) > a:nth-child(4) {
+  background-color: #9dd1ff;
+  color: #063462;
+}
+
+.theme_control_panel > a {
+  background: url("../images/eye-icon.png");
+  background-repeat: no-repeat;
+  background-position-y: -2px;
+  padding-left: 36px;
+  font-weight: 400;
+  color: #000 !important;
+  background-color: transparent !important;
+  cursor: pointer;
+  margin-left: -3px;
+  display: inline-flex;
+}

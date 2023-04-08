@@ -1,0 +1,46 @@
+@import url(./Header.css);
+@import url(./Templates.css);
+@import url(./Fonts.css);
+@import url(./Main.css);
+@import url(./Footer.css);
+@import url(./CustomElements.css);
+@import url(./Inputs.css);
+@import url(./Colors.css);
+@import url(./ThemeControlPanel.css);
+
+/* ADAPTIVE STYLES */
+@import url(./adaptive/1200.css);
+@import url(./adaptive/990.css);
+@import url(./adaptive/770.css);
+
+/* UTILS */
+@import url(./ArrowScrollUp.css);
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background-position: left top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+div > img,
+a > img,
+figure > img {
+  width: 100%;
+  height: auto;
+}
+
+.content,
+.aside_content__section,
+.header,
+.sub_navigation__list_items {
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}

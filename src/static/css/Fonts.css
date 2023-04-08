@@ -1,0 +1,49 @@
+body {
+  font-family: "Ubuntu Condensed", sans-serif;
+  color: #404040;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: royalblue;
+}
+
+.navigation__list_item > a {
+  color: white;
+}
+
+h1,
+h2 {
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-bottom: 0.67em;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 22px;
+  color: #444;
+}
+
+p {
+  margin-bottom: 1.5em;
+}
+
+ul {
+  margin: 0 0 1.5em 3em;
+}
+
+figcaption {
+  color: #555;
+  font-size: 13px;
+}
+
+input {
+  font-family: "Ubuntu Condensed", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
