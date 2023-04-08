@@ -10,7 +10,12 @@ import (
 func (s *Server) initTemplates() (*template.Template, error) {
 	var files []string
 
-	var paths = []string{"./dist/*html"}
+	var paths = []string{
+		"./dist/*html",
+		"./dist/templates/chunks/*tmpl",
+		"./dist/templates/components/*tmpl",
+		"./dist/templates/pages/*html",
+	}
 
 	for _, path := range paths {
 		file, err := filepath.Glob(path)

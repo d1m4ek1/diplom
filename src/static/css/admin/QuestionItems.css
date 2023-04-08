@@ -1,0 +1,31 @@
+.question_items {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.question_item {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 10px 10px 10px 0;
+  border: 1px solid black;
+  width: 250px;
+  transition: 0.3s;
+}
+
+.question_item:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+.question_item p {
+  text-align: center;
+  margin: 0;
+}
+
+.question_item button {
+  width: 100%;
+}

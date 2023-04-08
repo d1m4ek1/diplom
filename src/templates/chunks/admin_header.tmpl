@@ -1,0 +1,21 @@
+{{ define "chunk_admin_header" }}
+<header class="header">
+  <nav class="header_navigation">
+    <ul class="header_navigation__items">
+      {{ if .IsQuestions}}
+      <li class="active"><a href="/admin" class="active">Вопросы</a></li>
+      {{ else }}
+      <li><a href="/admin">Вопросы</a></li>
+      <!-- prettier-ignore -->
+      {{end}}
+
+      {{if .IsSiteEditor}}
+      <li class="active"><a href="/admin/site-edit" class="active">Редактирование контента</a></li>
+      {{ else }}
+      <li><a href="/admin/site-edit">Редактирование контента</a></li>
+      <!-- prettier-ignore -->
+      {{end}}
+    </ul>
+  </nav>
+</header>
+{{ end }}

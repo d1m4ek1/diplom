@@ -1,0 +1,30 @@
+{{ define "template_form_questions" }}
+<div class="form_qustion">
+  <div class="form_question__content">
+    <div class="row_inputs">
+      <input id="firstName" name="first_name" type="type" placeholder="Ваше имя" maxlength="50" required />
+      <input id="secondName" name="second_name" type="text" placeholder="Ваша фамилия" maxlength="50" />
+    </div>
+    <input id="thirdName" name="third_name" type="text" placeholder="Ваше отчество" maxlength="50" />
+    <div class="row_center">
+      <div class="radio">
+        <input id="type_user_student" data-type-user="студент" type="radio" name="type_user" checked required />
+        <label for="type_user_student">Студент</label>
+      </div>
+      <div class="radio">
+        <input id="type_user_abiturient" data-type-user="абитуриент" type="radio" name="type_user" checked required />
+        <label for="type_user_abiturient">Абитуриент</label>
+      </div>
+    </div>
+    <input id="email" name="email" type="email" placeholder="Email" required maxlength="126" />
+    <input id="tel" name="tel" type="tel" placeholder="Номер телефона" required maxlength="12" />
+    <textarea name="question" id="question" placeholder="Напишите вопрос" required maxlength="2500"></textarea>
+    <p style="display: none" class="notif-error">Неизвестная ошибка!</p>
+    <p style="display: none" class="notif-error error-notif-inputs">Заполните обведенные поля!</p>
+    <p style="display: none" class="notif-successfully">
+      Ваш вопрос отправлен и обрабатывается администратором, в ближайщее время с вами свяжутся!
+    </p>
+    <button id="sendForm" class="btn dark_blue">Отправить вопрос</button>
+  </div>
+</div>
+{{ end }}

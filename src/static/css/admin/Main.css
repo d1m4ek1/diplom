@@ -1,0 +1,13 @@
+.admin_wrapper {
+  display: flex;
+  justify-content: start;
+}
+
+.main {
+  width: 100%;
+  margin-top: 35px;
+  padding: 0 50px;
+  position: relative;
+  left: 220px;
+  background-color: white;
+}

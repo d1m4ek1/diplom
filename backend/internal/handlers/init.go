@@ -18,13 +18,17 @@ type files interface {
 }
 
 type routes interface {
-	routesInit()
+	routesInit(db *sqlx.DB)
 
 	routesInitAPI(db *sqlx.DB)
 }
 
 type controllers interface {
-	home() gin.HandlerFunc
+	home(db *sqlx.DB) gin.HandlerFunc
+
+	admin() gin.HandlerFunc
+
+	siteEdit() gin.HandlerFunc
 }
 
 type Server struct {
@@ -44,9 +48,7 @@ func (s *Server) InitServer(db *sqlx.DB) error {
 
 	go s.updateTemplates()
 
-	s.Router.Static("/static/js", "./dist/static/js")
-	s.Router.Static("/static/images", "./dist/static/images")
-	s.Router.Static("/static/css", "./dist/static/css")
+	s.Router.Static("/static", "./dist/static")
 
 	// s.Router.Use(sessions.Sessions("myssesion", store))
 
@@ -55,7 +57,7 @@ func (s *Server) InitServer(db *sqlx.DB) error {
 	s.Router.Use(gin.Logger())
 	s.Router.Use(gin.Recovery())
 
-	s.routesInit()
+	s.routesInit(db)
 	s.routesInitAPI(db)
 
 	if err := s.Router.Run(":5050"); err != nil {

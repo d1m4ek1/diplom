@@ -46,3 +46,63 @@ input[type="submit"] {
 .burger-btn > span:nth-child(2) {
   margin: 3px;
 }
+
+.radio {
+  display: flex;
+  width: min-content;
+}
+
+.radio > input {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+
+.row_inputs {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.row_inputs input {
+  width: 49%;
+}
+
+.row_center {
+  display: flex;
+  justify-content: center;
+}
+
+.row_center .radio {
+  margin: 20px 15px;
+}
+
+textarea {
+  margin: 5px 0;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.btn {
+  padding: 11px 0px;
+  background: #01052b;
+  border: 1px solid;
+  border-color: #ccc #ccc #bbb;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.error_input {
+  box-shadow: 0 0 0 2px red;
+}
+
+.notif-error {
+  color: rgb(151, 0, 0);
+}
+
+.notif-successfully {
+  color: rgb(0, 160, 0);
+}

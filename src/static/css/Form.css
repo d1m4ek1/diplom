@@ -1,0 +1,12 @@
+.form_qustion textarea {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height: 100px;
+  max-height: 300px;
+  min-height: 100px;
+}
+
+.form_qustion .btn {
+  width: 100%;
+}

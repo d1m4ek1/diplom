@@ -1,0 +1,25 @@
+{{ define "site-edit" }}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Панель администратора</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {{ template "chunk_devmeta" }}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/4e764615ec.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="https://urgt66.ru/wp-content/uploads/2021/03/cropped-эмблема-32x32.png" sizes="32x32" />
+    <link rel="stylesheet" href="../../static/css/admin/index.css" />
+  </head>
+  <body>
+    <div class="admin_wrapper">
+      {{ template "chunk_admin_header" . }}
+      <main></main>
+    </div>
+  </body>
+</html>
+{{ end }}
