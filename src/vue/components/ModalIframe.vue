@@ -5,7 +5,11 @@
         <h2>Просмотр истории редактирования</h2>
         <button @click="closeModal()" class="close"></button>
       </div>
-      <iframe :src="`/iframe?idhtml=${idhtml}`" frameborder="0"></iframe>
+      <iframe
+        v-if="idhtml !== 0"
+        :src="`/iframe?idhtml=${idhtml}`"
+        frameborder="0"
+      ></iframe>
     </div>
   </div>
 </template>
