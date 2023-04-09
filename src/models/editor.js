@@ -20,6 +20,15 @@ class EditorAdmin {
       method: "GET",
     });
   }
+
+  static async setNewActualSiteContentFromHistory(_id) {
+    return await fetch(`/api/admin/editor/set_new`, {
+      method: "PUT",
+      body: JSON.stringify({
+        _id,
+      }),
+    });
+  }
 }
 
 export default EditorAdmin;

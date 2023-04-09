@@ -73,3 +73,30 @@ func SaveContent(db *sqlx.DB) gin.HandlerFunc {
 		})
 	})
 }
+
+func SetNewActualSiteContentFromHistory(db *sqlx.DB) gin.HandlerFunc {
+	return gin.HandlerFunc(func(ctx *gin.Context) {
+		var sti models.SiteContentItem
+
+		if err := ctx.ShouldBindJSON(&sti); err != nil {
+			log.Println(err)
+			ctx.JSON(http.StatusBadRequest, gin.H{
+				"successfully": false,
+			})
+			return
+		}
+
+		if status, err := sti.SetNewActualSiteContentFromHistory(db); err != nil {
+			log.Println(err)
+			ctx.JSON(status, gin.H{
+				"successfully": false,
+			})
+			return
+		}
+
+		ctx.JSON(http.StatusOK, gin.H{
+			"successfully": true,
+			"data":         sti,
+		})
+	})
+}

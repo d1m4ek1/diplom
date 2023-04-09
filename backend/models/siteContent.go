@@ -12,6 +12,8 @@ type SiteContent interface {
 	SaveContent(db *sqlx.DB) (int, error)
 
 	GetAllSiteContent(db *sqlx.DB) (int, error)
+
+	SetNewActualSiteContentFromHistory(db *sqlx.DB) (int, error)
 }
 
 type SiteContentItem struct {
@@ -28,13 +30,14 @@ type SiteContentItems struct {
 func (s *SiteContentItem) GetActualSiteContent(db *sqlx.DB) (int, error) {
 	if err := db.Get(s, `
 	SELECT 
-		*
+		s.*
   FROM 
-		site_content
-  ORDER BY 
-		add_date DESC
-  LIMIT 
-		1`); err != nil {
+		site_content s,
+		actual_site_content a
+  WHERE
+		s.id=a.id_site_content
+		AND
+		a.id=1`); err != nil {
 		return http.StatusInternalServerError, err
 	}
 
@@ -54,12 +57,48 @@ func (s *SiteContentItems) GetAllSiteContent(db *sqlx.DB) (int, error) {
 }
 
 func (s *SiteContentItem) SaveContent(db *sqlx.DB) (int, error) {
-	if _, err := db.Exec(`
+	var id int64
+
+	if err := db.Get(&id, `
 	INSERT INTO
 		site_content
 		(header, content, add_date)
 	VALUES
-		($1, $2, $3)`, s.Header, s.Content, s.AddDate); err != nil {
+		($1, $2, $3)
+	RETURNING id`, s.Header, s.Content, s.AddDate); err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	if _, err := db.Exec(`
+		UPDATE
+			actual_site_content
+		SET
+			id_site_content=$1`, id); err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	return http.StatusOK, nil
+}
+
+func (s *SiteContentItem) SetNewActualSiteContentFromHistory(db *sqlx.DB) (int, error) {
+	if _, err := db.Exec(`
+		UPDATE
+			actual_site_content
+		SET
+			id_site_content=$1`, s.Id); err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	if err := db.Get(s, `
+	SELECT 
+		s.*
+  FROM 
+		site_content s,
+		actual_site_content a
+  WHERE
+		s.id=a.id_site_content
+		AND
+		a.id=1`); err != nil {
 		return http.StatusInternalServerError, err
 	}
 

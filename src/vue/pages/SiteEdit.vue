@@ -31,7 +31,8 @@
               <th>ID</th>
               <th>Дата изменения</th>
               <th>Просмотр изменения</th>
-              <th></th>
+              <th>Установить изменение</th>
+              <th>Удалить изменение</th>
             </thead>
             <tbody>
               <tr v-for="(item, idx) in historyEditItems" :key="`column${idx}`">
@@ -39,6 +40,11 @@
                 <td><Dateui :date="item.addDate" /></td>
                 <td>
                   <button>Просмотр</button>
+                </td>
+                <td>
+                  <button @click="setNewActualSiteContentFromHistory(item._id)">
+                    Установить
+                  </button>
                 </td>
                 <td><button>Удалить</button></td>
               </tr>
@@ -69,8 +75,17 @@ export default {
       historyEditItems: [],
     };
   },
+  watch: {
+    getActualSiteContent(newValue) {
+      this.dataActualContent = { ...newValue };
+    },
+  },
   methods: {
-    ...mapActions(["saveEditItem", "setEditItems"]),
+    ...mapActions([
+      "saveEditItem",
+      "setEditItems",
+      "setNewActualSiteContentFromHistory",
+    ]),
     async saveEdit() {
       this.dataActualContent.addDate = new Date().toISOString();
 
@@ -91,7 +106,7 @@ export default {
     this.historyEditItems = this.getEditItems;
   },
   computed: {
-    ...mapGetters(["getEditItems"]),
+    ...mapGetters(["getEditItems", "getActualSiteContent"]),
   },
   components: {
     Editor,

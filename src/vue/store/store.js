@@ -9,6 +9,12 @@ const store = createStore({
       X_CSRF_TOKEN: "",
       questions: [],
       editItems: [],
+      actualSiteContent: {
+        id: 0,
+        header: "",
+        content: "",
+        addDate: "",
+      },
     };
   },
   getters: {
@@ -16,6 +22,7 @@ const store = createStore({
     getXCSRFToken: (state) => state.X_CSRF_TOKEN,
     getQuestions: (state) => state.questions,
     getEditItems: (state) => state.editItems,
+    getActualSiteContent: (state) => state.actualSiteContent,
   },
   mutations: {
     userLogin: (state) => (state.isAuth = true),
@@ -23,6 +30,7 @@ const store = createStore({
     setCSRFToken: (state, token) => (state.X_CSRF_TOKEN = token),
     setQuestions: (state, data) => (state.questions = data),
     setEditItems: (state, data) => (state.editItems = data),
+    setActualSiteContent: (state, data) => (state.actualSiteContent = { ...data }),
     saveEditItem: (state, data) => state.editItems.push(data),
   },
   actions: {
@@ -48,7 +56,7 @@ const store = createStore({
         });
     },
     async saveEditItem({ commit }, data) {
-      await EditorAdmin.SaveContent(this.dataActualContent)
+      await EditorAdmin.SaveContent(data)
         .then((response) => response.json())
         .then((response) => {
           if (response.successfully) {
@@ -61,6 +69,15 @@ const store = createStore({
         .then((response) => response.json())
         .then((response) => {
           commit("setEditItems", response.data);
+        });
+    },
+    async setNewActualSiteContentFromHistory({ commit }, id) {
+      await EditorAdmin.setNewActualSiteContentFromHistory(id)
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.successfully) {
+            commit("setActualSiteContent", response.data);
+          }
         });
     },
   },

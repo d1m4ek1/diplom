@@ -40,6 +40,8 @@ func (s *Server) routesInitAPI(db *sqlx.DB) {
 
 				editor.GET("/all", api.GetAllSiteContent(db))
 
+				editor.PUT("/set_new", api.SetNewActualSiteContentFromHistory(db))
+
 				editor.POST("/save", api.SaveContent(db))
 			}
 		}

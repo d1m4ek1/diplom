@@ -12,4 +12,9 @@ create table site_content (
   content text DEFAULT ''
 );
 
+create table actual_site_content (
+  id serial PRIMARY KEY,
+  id_site_content int NOT NULL
+);
+
 INSERT INTO admin (name, password) VALUES ('admin', 'admin_root')
