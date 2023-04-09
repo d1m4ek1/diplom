@@ -26,18 +26,12 @@ func (s *Server) home(db *sqlx.DB) gin.HandlerFunc {
 
 func (s *Server) admin() gin.HandlerFunc {
 	return gin.HandlerFunc(func(ctx *gin.Context) {
-		ctx.HTML(http.StatusOK, "admin", gin.H{
-			"IsQuestions":  true,
-			"IsSiteEditor": false,
-		})
+		ctx.HTML(http.StatusOK, "admin", nil)
 	})
 }
 
 func (s *Server) siteEdit() gin.HandlerFunc {
 	return gin.HandlerFunc(func(ctx *gin.Context) {
-		ctx.HTML(http.StatusOK, "site-edit", gin.H{
-			"IsSiteEditor": true,
-			"IsQuestions":  false,
-		})
+		ctx.HTML(http.StatusOK, "admin", nil)
 	})
 }

@@ -4,6 +4,12 @@ class Admin {
       method: "GET",
     });
   }
+
+  static async DeleteQuestionById(id) {
+    return await fetch("/api/admin/delete", {
+      method: "DELETE",
+    });
+  }
 }
 
 export default Admin;

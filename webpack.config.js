@@ -1,6 +1,8 @@
+const Webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { VueLoaderPlugin } = require("vue-loader");
 const path = require("path");
 
 module.exports = {
@@ -14,6 +16,13 @@ module.exports = {
     filename: "static/[name].[hash].js",
     clean: true,
   },
+  resolve: {
+    extensions: [".*", ".js", ".vue"],
+    alias: {
+      "@": path.resolve(__dirname, "./src/vue/"),
+      vue: "vue/dist/vue.esm-bundler.js",
+    },
+  },
   module: {
     rules: [
       {
@@ -22,8 +31,19 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        test: /\.vue$/,
+        loader: "vue-loader",
+        options: {
+          loader: {
+            css: "vue-style-loader!css-loader",
+          },
+          hotReload: true,
+          appendTsSuffixTo: [/\.vue$/],
+        },
+      },
+      {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "style-loader", "css-loader"],
+        use: ["style-loader", "vue-style-loader", "css-loader"],
       },
       {
         test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
@@ -42,20 +62,20 @@ module.exports = {
       filename: "templates/pages/admin.html",
       chunks: ["_admin"],
     }),
-    new HtmlWebpackPlugin({
-      template: "src/templates/pages/site-edit.html",
-      filename: "templates/pages/site-edit.html",
-      chunks: ["_admin"],
-    }),
-    new MiniCssExtractPlugin({
-      filename: "[name].[hash].css",
-    }),
+    // new MiniCssExtractPlugin({
+    //   filename: "[name].[hash].css",
+    // }),
     new CopyWebpackPlugin({
       patterns: [
         { from: "src/static", to: "static" },
         { from: "src/templates/chunks", to: "templates/chunks" },
         { from: "src/templates/components", to: "templates/components" },
       ],
+    }),
+    new VueLoaderPlugin(),
+    new Webpack.DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: true,
     }),
   ],
 };
