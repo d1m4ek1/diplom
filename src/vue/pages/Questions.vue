@@ -18,7 +18,7 @@
           <p>Email: {{ item.email }}</p>
           <p>Номер телефона: {{ item.tel }}</p>
           <button @click="openModal(item.question)">Читать вопрос</button>
-          <button>Удалить вопрос</button>
+          <button @click="deleteQuestionById(item._id)">Удалить вопрос</button>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import ModalReadQuestion from "../components/ModalReadQuestion.vue";
 
 export default {
@@ -70,6 +70,7 @@ export default {
       this.forModal.opened = false;
       this.forModal.content = "";
     },
+    ...mapActions(["deleteQuestionById"]),
   },
   created() {
     this.questions = this.getQuestions;

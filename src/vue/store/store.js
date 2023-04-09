@@ -38,6 +38,18 @@ const store = createStore({
           }
         });
     },
+    async deleteQuestionById({ state, commit }, id) {
+      await Admin.DeleteQuestionById(id)
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.successfully) {
+            commit(
+              "setQuestions",
+              state.questions.filter((q) => q._id !== id)
+            );
+          }
+        });
+    },
   },
 });
 

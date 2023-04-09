@@ -6,7 +6,7 @@ class Admin {
   }
 
   static async DeleteQuestionById(id) {
-    return await fetch("/api/admin/delete", {
+    return await fetch(`/api/admin/delete?id=${id}`, {
       method: "DELETE",
     });
   }

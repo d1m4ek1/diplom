@@ -31,6 +31,8 @@ func (s *Server) routesInitAPI(db *sqlx.DB) {
 		admin := apix.Group("/admin")
 		{
 			admin.GET("/all", api.GetAllQuestions(db))
+
+			admin.DELETE("/delete", api.DeleteQuestionByID(db))
 		}
 	}
 }
