@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import Admin from "../../models/admin";
+import EditorAdmin from "../../models/editor";
 
 const store = createStore({
   state() {
@@ -7,26 +8,22 @@ const store = createStore({
       isAuth: false,
       X_CSRF_TOKEN: "",
       questions: [],
+      editItems: [],
     };
   },
   getters: {
     getIsAuth: (state) => state.isAuth,
     getXCSRFToken: (state) => state.X_CSRF_TOKEN,
     getQuestions: (state) => state.questions,
+    getEditItems: (state) => state.editItems,
   },
   mutations: {
-    userLogin(state) {
-      state.isAuth = true;
-    },
-    userLogout(state) {
-      state.isAuth = false;
-    },
-    setCSRFToken(state, token) {
-      state.X_CSRF_TOKEN = token;
-    },
-    setQuestions(state, data) {
-      state.questions = data;
-    },
+    userLogin: (state) => (state.isAuth = true),
+    userLogout: (state) => (state.isAuth = false),
+    setCSRFToken: (state, token) => (state.X_CSRF_TOKEN = token),
+    setQuestions: (state, data) => (state.questions = data),
+    setEditItems: (state, data) => (state.editItems = data),
+    saveEditItem: (state, data) => state.editItems.push(data),
   },
   actions: {
     async setQuestions({ commit }) {
@@ -48,6 +45,22 @@ const store = createStore({
               state.questions.filter((q) => q._id !== id)
             );
           }
+        });
+    },
+    async saveEditItem({ commit }, data) {
+      await EditorAdmin.SaveContent(this.dataActualContent)
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.successfully) {
+            commit("saveEditItem", data);
+          }
+        });
+    },
+    async setEditItems({ commit }) {
+      await EditorAdmin.GetAllEditor()
+        .then((response) => response.json())
+        .then((response) => {
+          commit("setEditItems", response.data);
         });
     },
   },

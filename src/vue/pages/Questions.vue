@@ -14,7 +14,7 @@
             ФИО: {{ `${item.secondName} ${item.firstName} ${item.thirdName}` }}
           </p>
           <p>{{ item.typeUser }}</p>
-          <p>{{ toDate(item.addDate) }}</p>
+          <p><Date :date="item.addDate" /></p>
           <p>Email: {{ item.email }}</p>
           <p>Номер телефона: {{ item.tel }}</p>
           <button @click="openModal(item.question)">Читать вопрос</button>
@@ -33,9 +33,10 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import ModalReadQuestion from "../components/ModalReadQuestion.vue";
+import Date from "../components/Date.vue";
 
 export default {
-  components: { ModalReadQuestion },
+  components: { ModalReadQuestion, Date },
   name: "QuesitionsVue",
   data() {
     return {
@@ -52,16 +53,6 @@ export default {
     },
   },
   methods: {
-    toDate(date) {
-      return new Intl.DateTimeFormat("ru-RU", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      }).format(new Date(date));
-    },
     openModal(content) {
       this.forModal.content = content;
       this.forModal.opened = true;

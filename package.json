@@ -16,7 +16,9 @@
   "license": "ISC",
   "dependencies": {
     "@editorjs/editorjs": "^2.26.5",
+    "@tinymce/tinymce-vue": "^5.1.0",
     "@vue/compiler-sfc": "^3.2.47",
+    "tinymce": "^6.4.1",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6",
     "vue-style-loader": "^4.1.3",

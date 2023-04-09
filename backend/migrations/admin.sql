@@ -8,6 +8,7 @@ create table admin (
 create table site_content (
   id serial PRIMARY KEY,
   add_date timestamp without time zone NOT NULL,
+  header text DEFAULT '',
   content text DEFAULT ''
 );
 

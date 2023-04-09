@@ -33,6 +33,15 @@ func (s *Server) routesInitAPI(db *sqlx.DB) {
 			admin.GET("/all", api.GetAllQuestions(db))
 
 			admin.DELETE("/delete", api.DeleteQuestionByID(db))
+
+			editor := admin.Group("/editor")
+			{
+				editor.GET("/actual", api.GetActulSiteContent(db))
+
+				editor.GET("/all", api.GetAllSiteContent(db))
+
+				editor.POST("/save", api.SaveContent(db))
+			}
 		}
 	}
 }
