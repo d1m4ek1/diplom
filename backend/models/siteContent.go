@@ -14,6 +14,10 @@ type SiteContent interface {
 	GetAllSiteContent(db *sqlx.DB) (int, error)
 
 	SetNewActualSiteContentFromHistory(db *sqlx.DB) (int, error)
+
+	DeleteSiteContentFromHistory(db *sqlx.DB) (int, error)
+
+	GetSiteContentByID(db *sqlx.DB, id int64) (int, error)
 }
 
 type SiteContentItem struct {
@@ -38,6 +42,20 @@ func (s *SiteContentItem) GetActualSiteContent(db *sqlx.DB) (int, error) {
 		s.id=a.id_site_content
 		AND
 		a.id=1`); err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	return http.StatusOK, nil
+}
+
+func (s *SiteContentItem) GetSiteContentByID(db *sqlx.DB, id int64) (int, error) {
+	if err := db.Get(s, `
+	SELECT 
+		*
+  FROM 
+		site_content
+  WHERE
+		id=$1`, id); err != nil {
 		return http.StatusInternalServerError, err
 	}
 
@@ -99,6 +117,36 @@ func (s *SiteContentItem) SetNewActualSiteContentFromHistory(db *sqlx.DB) (int, 
 		s.id=a.id_site_content
 		AND
 		a.id=1`); err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	return http.StatusOK, nil
+}
+
+func (s *SiteContentItem) DeleteSiteContentFromHistory(db *sqlx.DB) (int, error) {
+	if _, err := db.Exec(`
+	DELETE FROM
+		site_content
+	WHERE
+		(SELECT count(*) FROM site_content) >= 2
+		AND
+		id=$1`, s.Id); err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	if _, err := db.Exec(`
+	UPDATE
+		actual_site_content
+	SET
+		id_site_content=(
+			SELECT 
+				id 
+			FROM 
+				site_content
+			ORDER BY 
+				add_date DESC
+			LIMIT 
+				1)`); err != nil {
 		return http.StatusInternalServerError, err
 	}
 

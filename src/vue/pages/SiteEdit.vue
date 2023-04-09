@@ -35,24 +35,47 @@
               <th>Удалить изменение</th>
             </thead>
             <tbody>
-              <tr v-for="(item, idx) in historyEditItems" :key="`column${idx}`">
-                <td>{{ item._id }}</td>
-                <td><Dateui :date="item.addDate" /></td>
-                <td>
-                  <button>Просмотр</button>
-                </td>
-                <td>
-                  <button @click="setNewActualSiteContentFromHistory(item._id)">
-                    Установить
-                  </button>
-                </td>
-                <td><button>Удалить</button></td>
-              </tr>
+              <template
+                v-for="(item, idx) in historyEditItems"
+                :key="`column${idx}`"
+              >
+                <tr
+                  :class="{
+                    'active-content-table': item._id === dataActualContent._id,
+                  }"
+                >
+                  <td>{{ item._id }}</td>
+                  <td><Dateui :date="item.addDate" /></td>
+                  <td>
+                    <button @click="openModal(item._id)">Просмотр</button>
+                  </td>
+                  <td>
+                    <button
+                      @click="setNewActualSiteContentFromHistory(item._id)"
+                    >
+                      Установить
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      v-if="historyEditItems.length !== 1"
+                      @click="deleteSiteContentFromHistory(item._id)"
+                    >
+                      Удалить
+                    </button>
+                  </td>
+                </tr>
+              </template>
             </tbody>
           </table>
         </div>
       </section>
     </div>
+    <ModalIframeVue
+      :idhtml="forModal.idhtml"
+      :show="forModal.opened"
+      @on-close-window="onCloseWindow"
+    />
   </div>
 </template>
 
@@ -61,6 +84,8 @@ import Editor from "@tinymce/tinymce-vue";
 import EditorAdmin from "../../models/editor";
 import Dateui from "../components/Date.vue";
 import { mapActions, mapGetters } from "vuex";
+
+import ModalIframeVue from "../components/ModalIframe.vue";
 
 export default {
   name: "SiteEditVue",
@@ -73,11 +98,18 @@ export default {
         addDate: "",
       },
       historyEditItems: [],
+      forModal: {
+        opened: false,
+        idhtml: 0,
+      },
     };
   },
   watch: {
     getActualSiteContent(newValue) {
       this.dataActualContent = { ...newValue };
+    },
+    getEditItems(newValue) {
+      this.historyEditItems = newValue;
     },
   },
   methods: {
@@ -85,11 +117,20 @@ export default {
       "saveEditItem",
       "setEditItems",
       "setNewActualSiteContentFromHistory",
+      "deleteSiteContentFromHistory",
     ]),
     async saveEdit() {
       this.dataActualContent.addDate = new Date().toISOString();
 
       await this.saveEditItem(this.dataActualContent);
+    },
+    openModal(id) {
+      this.forModal.idhtml = id;
+      this.forModal.opened = true;
+    },
+    onCloseWindow() {
+      this.forModal.opened = false;
+      this.forModal.content = "";
     },
   },
   async created() {
@@ -111,20 +152,29 @@ export default {
   components: {
     Editor,
     Dateui,
+    ModalIframeVue,
   },
 };
 </script>
 
 <style scoped>
+.history_edit_items {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
 section > input {
   width: 100%;
 }
+
 table {
   width: 100%;
 }
+
 thead {
   background-color: rgb(230, 230, 230);
 }
+
 table,
 th,
 td {
@@ -143,5 +193,9 @@ td > button {
 
 table tr:nth-child(even) {
   background-color: rgb(250, 250, 250);
+}
+
+.active-content-table {
+  background-color: rgb(210, 255, 210) !important;
 }
 </style>

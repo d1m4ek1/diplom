@@ -21,9 +21,18 @@ class EditorAdmin {
     });
   }
 
-  static async setNewActualSiteContentFromHistory(_id) {
+  static async SetNewActualSiteContentFromHistory(_id) {
     return await fetch(`/api/admin/editor/set_new`, {
       method: "PUT",
+      body: JSON.stringify({
+        _id,
+      }),
+    });
+  }
+
+  static async DeleteSiteContentFromHistory(_id) {
+    return await fetch(`/api/admin/editor/delete`, {
+      method: "DELETE",
       body: JSON.stringify({
         _id,
       }),

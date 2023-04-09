@@ -43,6 +43,13 @@ func (s *Server) routesInitAPI(db *sqlx.DB) {
 				editor.PUT("/set_new", api.SetNewActualSiteContentFromHistory(db))
 
 				editor.POST("/save", api.SaveContent(db))
+
+				editor.DELETE("/delete", api.DeleteSiteContentFromHistory(db))
+			}
+
+			iframe := s.Router.Group("/iframe")
+			{
+				iframe.GET("", api.GetHTMLForIframe(db))
 			}
 		}
 	}
