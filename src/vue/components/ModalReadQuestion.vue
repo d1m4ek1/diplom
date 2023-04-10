@@ -5,7 +5,9 @@
         <h2>Читать вопрос</h2>
         <button @click="closeModal()" class="close"></button>
       </div>
-      <pre>{{ content }}</pre>
+      <div class="modal__content">
+        <p>{{ content }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +41,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -75,6 +77,11 @@ export default {
 
 .modal_header h2 {
   margin: 0;
+}
+
+.modal__content {
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 /* The Close Button */

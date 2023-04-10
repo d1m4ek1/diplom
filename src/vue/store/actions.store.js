@@ -60,6 +60,15 @@ const actions = {
         }
       });
   },
+  async sortList({ commit }, data) {
+    await EditorAdmin.FilterSortList(data)
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.successfully) {
+          commit("setEditItems", response.items);
+        }
+      });
+  },
 };
 
 export default actions;

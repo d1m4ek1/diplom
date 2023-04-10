@@ -150,3 +150,26 @@ func GetHTMLForIframe(db *sqlx.DB) gin.HandlerFunc {
 		})
 	})
 }
+
+func SortList(db *sqlx.DB) gin.HandlerFunc {
+	return gin.HandlerFunc(func(ctx *gin.Context) {
+		list := models.SortListData{
+			SortBy:     ctx.Query("sort_by"),
+			SortByDate: ctx.Query("sort_by_date"),
+		}
+
+		sortedItems, status, err := list.SortList(db)
+		if err != nil {
+			log.Println(err)
+			ctx.JSON(status, gin.H{
+				"successfully": false,
+			})
+			return
+		}
+
+		ctx.JSON(http.StatusOK, gin.H{
+			"successfully": true,
+			"items":        sortedItems,
+		})
+	})
+}
