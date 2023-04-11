@@ -40,7 +40,7 @@ func (s *Server) routesInitAPI(db *sqlx.DB) {
 
 				editor.GET("/all", api.GetAllSiteContent(db))
 
-				editor.GET("/sort_list_history", api.SortList(db))
+				editor.GET("/sort_list", api.SortList(db))
 
 				editor.PUT("/set_new", api.SetNewActualSiteContentFromHistory(db))
 

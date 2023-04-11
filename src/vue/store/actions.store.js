@@ -65,7 +65,15 @@ const actions = {
       .then((response) => response.json())
       .then((response) => {
         if (response.successfully) {
-          commit("setEditItems", response.items);
+          switch (data.nameList) {
+            case "history":
+              commit("setEditItems", response.items);
+              break;
+
+            case "questions":
+              commit("setQuestions", response.items);
+              break;
+          }
         }
       });
   },

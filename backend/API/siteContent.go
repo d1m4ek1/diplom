@@ -156,6 +156,7 @@ func SortList(db *sqlx.DB) gin.HandlerFunc {
 		list := models.SortListData{
 			SortBy:     ctx.Query("sort_by"),
 			SortByDate: ctx.Query("sort_by_date"),
+			NameList:   ctx.Query("name_list"),
 		}
 
 		sortedItems, status, err := list.SortList(db)
@@ -167,9 +168,19 @@ func SortList(db *sqlx.DB) gin.HandlerFunc {
 			return
 		}
 
+		var items interface{}
+		switch list.NameList {
+		case "history":
+			items = sortedItems.SiteContentItems
+			break
+		case "questions":
+			items = sortedItems.QuestionItems
+			break
+		}
+
 		ctx.JSON(http.StatusOK, gin.H{
 			"successfully": true,
-			"items":        sortedItems,
+			"items":        items,
 		})
 	})
 }

@@ -40,12 +40,15 @@ class EditorAdmin {
   }
 
   static async FilterSortList(data) {
-    return await fetch(
-      `/api/admin/editor/sort_list_history?sort_by=${data.sortList}&sort_by_date=${data.sortListByDate}`,
-      {
-        method: "GET",
-      }
-    );
+    const urlSearchParams = new URLSearchParams({
+      sort_by: data.sortList,
+      sort_by_date: data.sortListByDate,
+      name_list: data.nameList,
+    });
+
+    return await fetch(`/api/admin/editor/sort_list?` + urlSearchParams, {
+      method: "GET",
+    });
   }
 }
 

@@ -147,6 +147,7 @@ export default {
       filterData: {
         sortList: "ascending",
         sortListByDate: "ascending",
+        nameList: "history",
       },
     };
   },
@@ -181,6 +182,7 @@ export default {
     },
     async filterSortList(key) {
       Object.keys(this.filterData).forEach((k) => {
+        if (k === "nameList") return;
         if (key !== k) {
           this.filterData[k] = "ascending";
         }
