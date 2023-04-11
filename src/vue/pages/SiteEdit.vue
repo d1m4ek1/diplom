@@ -25,46 +25,9 @@
       <section class="new_block">
         <hr />
         <h2>История изменений</h2>
-        <div class="filter_history">
-          <h3>Фильтр</h3>
-          <div class="filter_history__inputs">
-            <div class="select_input_block">
-              <p>Сортировать список</p>
-              <select v-model="filterData.sortList">
-                <option disabled>Сортировать список</option>
-                <option
-                  value="ascending"
-                  selected
-                  @click="filterSortList('sortList')"
-                >
-                  По возрастанию
-                </option>
-                <option value="descending" @click="filterSortList('sortList')">
-                  По убыванию
-                </option>
-              </select>
-            </div>
-            <div class="select_input_block">
-              <p>Сортировать по дате</p>
-              <select v-model="filterData.sortListByDate">
-                <option disabled>Сортировать по дате</option>
-                <option
-                  value="ascending"
-                  selected
-                  @click="filterSortList('sortListByDate')"
-                >
-                  По возрастанию
-                </option>
-                <option
-                  value="descending"
-                  @click="filterSortList('sortListByDate')"
-                >
-                  По убыванию
-                </option>
-              </select>
-            </div>
-          </div>
-        </div>
+
+        <Filter :name="'history'" />
+
         <div class="history_edit_items">
           <table>
             <thead>
@@ -125,6 +88,7 @@
 import Editor from "@tinymce/tinymce-vue";
 import EditorAdmin from "../../models/editor";
 import Dateui from "../components/Date.vue";
+import Filter from "../components/Filter.vue";
 import { mapActions, mapGetters } from "vuex";
 
 import ModalIframeVue from "../components/ModalIframe.vue";
@@ -144,11 +108,6 @@ export default {
         opened: false,
         idhtml: 0,
       },
-      filterData: {
-        sortList: "ascending",
-        sortListByDate: "ascending",
-        nameList: "history",
-      },
     };
   },
   watch: {
@@ -165,7 +124,6 @@ export default {
       "setEditItems",
       "setNewActualSiteContentFromHistory",
       "deleteSiteContentFromHistory",
-      "sortList",
     ]),
     async saveEdit() {
       this.dataActualContent.addDate = new Date().toISOString();
@@ -179,17 +137,6 @@ export default {
     onCloseWindow() {
       this.forModal.opened = false;
       this.forModal.content = "";
-    },
-    async filterSortList(key) {
-      Object.keys(this.filterData).forEach((k) => {
-        if (k === "nameList") return;
-        if (key !== k) {
-          this.filterData[k] = "ascending";
-        }
-        return;
-      });
-
-      await this.sortList(this.filterData);
     },
   },
   async created() {
@@ -212,6 +159,7 @@ export default {
     Editor,
     Dateui,
     ModalIframeVue,
+    Filter,
   },
 };
 </script>
@@ -256,31 +204,5 @@ table tr:nth-child(even) {
 
 .active-content-table {
   background-color: rgb(210, 255, 210) !important;
-}
-
-.filter_history {
-  padding-bottom: 20px;
-}
-
-.filter_history__inputs {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.select_input_block {
-  display: flex;
-  flex-direction: column;
-  margin-right: 10px;
-}
-
-.select_input_block p {
-  margin: 0;
-}
-
-.select_input_block select {
-  border: 2px solid #eee;
-  padding: 5px;
-  min-width: 150px;
-  height: 30px;
 }
 </style>
