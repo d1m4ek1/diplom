@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
+	csrf "github.com/utrack/gin-csrf"
 )
 
 func (s *Server) home(db *sqlx.DB) gin.HandlerFunc {
@@ -33,5 +34,13 @@ func (s *Server) admin() gin.HandlerFunc {
 func (s *Server) siteEdit() gin.HandlerFunc {
 	return gin.HandlerFunc(func(ctx *gin.Context) {
 		ctx.HTML(http.StatusOK, "admin", nil)
+	})
+}
+
+func (s *Server) adminLogin() gin.HandlerFunc {
+	return gin.HandlerFunc(func(ctx *gin.Context) {
+		ctx.HTML(http.StatusOK, "admin_login", gin.H{
+			"csrf": csrf.GetToken(ctx),
+		})
 	})
 }

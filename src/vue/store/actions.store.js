@@ -1,4 +1,5 @@
 import Admin from "../../models/admin";
+import CSRF from "../../models/csrf";
 import EditorAdmin from "../../models/editor";
 
 const actions = {
@@ -11,8 +12,9 @@ const actions = {
         }
       });
   },
-  async deleteQuestionById({ state, commit }, id) {
-    await Admin.DeleteQuestionById(id)
+  async deleteQuestionById({ state, getters, commit }, id) {
+    await new Admin(getters.getXCSRFToken)
+      .DeleteQuestionById(id)
       .then((response) => response.json())
       .then((response) => {
         if (response.successfully) {
@@ -24,7 +26,8 @@ const actions = {
       });
   },
   async saveEditItem({ commit, dispatch, getters }, data) {
-    await EditorAdmin.SaveContent(data)
+    await new EditorAdmin(getters.getXCSRFToken)
+      .SaveContent(data)
       .then((response) => response.json())
       .then(async (response) => {
         if (response.successfully) {
@@ -41,8 +44,9 @@ const actions = {
         commit("setEditItems", response.data);
       });
   },
-  async setNewActualSiteContentFromHistory({ commit }, id) {
-    await EditorAdmin.SetNewActualSiteContentFromHistory(id)
+  async setNewActualSiteContentFromHistory({ getters, commit }, id) {
+    await new EditorAdmin(getters.getXCSRFToken)
+      .SetNewActualSiteContentFromHistory(id)
       .then((response) => response.json())
       .then((response) => {
         if (response.successfully) {
@@ -51,7 +55,8 @@ const actions = {
       });
   },
   async deleteSiteContentFromHistory({ getters, commit }, id) {
-    await EditorAdmin.DeleteSiteContentFromHistory(id)
+    await new EditorAdmin(getters.getXCSRFToken)
+      .DeleteSiteContentFromHistory(id)
       .then((response) => response.json())
       .then((response) => {
         if (response.successfully) {
@@ -76,6 +81,9 @@ const actions = {
           }
         }
       });
+  },
+  async setActionXCSRFToken({ commit }) {
+    await CSRF.GetToken().then((response) => commit("setCSRFToken", response.headers.get("X-CSRF-TOKEN")));
   },
 };
 

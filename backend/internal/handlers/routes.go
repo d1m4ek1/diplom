@@ -2,6 +2,7 @@ package handlers
 
 import (
 	api "diplom/backend/API"
+	"diplom/backend/middlewares"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -14,9 +15,11 @@ func (s *Server) routesInit(db *sqlx.DB) {
 
 	admin := s.Router.Group("/admin")
 	{
-		admin.GET("", s.admin())
+		admin.GET("/login", s.adminLogin())
 
-		admin.GET("site-edit", s.siteEdit())
+		admin.Use(middlewares.Auth()).GET("", s.admin())
+
+		admin.Use(middlewares.Auth()).GET("site-edit", s.siteEdit())
 	}
 }
 
@@ -30,11 +33,19 @@ func (s *Server) routesInitAPI(db *sqlx.DB) {
 
 		admin := apix.Group("/admin")
 		{
-			admin.GET("/all", api.GetAllQuestions(db))
+			auth := admin.Group("/auth")
+			{
+				auth.POST("/login", api.AdminLogin(db))
 
-			admin.DELETE("/delete", api.DeleteQuestionByID(db))
+				auth.PATCH("/logout", api.AdminLogout(db))
+			}
+
+			admin.Use(middlewares.Auth()).GET("/all", api.GetAllQuestions(db))
+
+			admin.Use(middlewares.Auth()).DELETE("/delete", api.DeleteQuestionByID(db))
 
 			editor := admin.Group("/editor")
+			editor.Use(middlewares.Auth())
 			{
 				editor.GET("/actual", api.GetActulSiteContent(db))
 
@@ -49,10 +60,16 @@ func (s *Server) routesInitAPI(db *sqlx.DB) {
 				editor.DELETE("/delete", api.DeleteSiteContentFromHistory(db))
 			}
 
-			iframe := s.Router.Group("/iframe")
+			iframe := admin.Group("/iframe")
+			iframe.Use(middlewares.Auth())
 			{
 				iframe.GET("", api.GetHTMLForIframe(db))
 			}
+		}
+
+		token := apix.Group("/token")
+		{
+			token.GET("/get_token", api.GetToken(db))
 		}
 	}
 }

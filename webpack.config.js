@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     _index: "/src/entrys/index.js",
     _admin: "/src/entrys/admin.js",
+    _admin_login: "/src/entrys/adminLogin.js",
   },
   mode: "development",
   output: {
@@ -62,9 +63,11 @@ module.exports = {
       filename: "templates/pages/admin.html",
       chunks: ["_admin"],
     }),
-    // new MiniCssExtractPlugin({
-    //   filename: "[name].[hash].css",
-    // }),
+    new HtmlWebpackPlugin({
+      template: "src/templates/pages/adminLogin.html",
+      filename: "templates/pages/adminLogin.html",
+      chunks: ["_admin_login"],
+    }),
     new CopyWebpackPlugin({
       patterns: [
         { from: "src/static", to: "static" },

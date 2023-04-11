@@ -1,11 +1,15 @@
 package handlers
 
 import (
+	"diplom/backend/middlewares"
 	"html/template"
 	"strings"
 
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/postgres"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
+	csrf "github.com/utrack/gin-csrf"
 )
 
 type InitServer interface {
@@ -41,18 +45,18 @@ func (s *Server) InitServer(db *sqlx.DB) error {
 		"upper": strings.ToUpper,
 	})
 
-	// store, err := postgres.NewStore(db.DB, []byte("secret"))
-	// if err != nil {
-	// 	return err
-	// }
+	store, err := postgres.NewStore(db.DB, []byte("secret"))
+	if err != nil {
+		return err
+	}
 
 	go s.updateTemplates()
 
 	s.Router.Static("/static", "./dist/static")
 
-	// s.Router.Use(sessions.Sessions("myssesion", store))
+	s.Router.Use(sessions.Sessions("myssesion", store))
 
-	// s.Router.Use(csrf.Middleware(middlewares.CreateConfigCSRFDefenderMiddleware()))
+	s.Router.Use(csrf.Middleware(middlewares.CreateConfigCSRFDefenderMiddleware()))
 
 	s.Router.Use(gin.Logger())
 	s.Router.Use(gin.Recovery())

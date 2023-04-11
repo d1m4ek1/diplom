@@ -1,16 +1,21 @@
 class EditorAdmin {
+  constructor(token) {
+    this.token = token;
+  }
+
   static async GetActualContent() {
     return await fetch("/api/admin/editor/actual", {
       method: "GET",
     });
   }
 
-  static async SaveContent(data) {
+  async SaveContent(data) {
     return await fetch("/api/admin/editor/save", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
+        "X-CSRF-TOKEN": this.token,
       },
     });
   }
@@ -21,21 +26,29 @@ class EditorAdmin {
     });
   }
 
-  static async SetNewActualSiteContentFromHistory(_id) {
+  async SetNewActualSiteContentFromHistory(_id) {
     return await fetch(`/api/admin/editor/set_new`, {
       method: "PUT",
       body: JSON.stringify({
         _id,
       }),
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": this.token,
+      },
     });
   }
 
-  static async DeleteSiteContentFromHistory(_id) {
+  async DeleteSiteContentFromHistory(_id) {
     return await fetch(`/api/admin/editor/delete`, {
       method: "DELETE",
       body: JSON.stringify({
         _id,
       }),
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": this.token,
+      },
     });
   }
 

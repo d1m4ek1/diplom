@@ -1,6 +1,6 @@
 create table admin (
   id serial PRIMARY KEY,
-  name varchar(24) NOT NULL,
+  login varchar(24) NOT NULL,
   password text NOT NULL,
   token varchar(256) DEFAULT ''
 );
@@ -17,4 +17,4 @@ create table actual_site_content (
   id_site_content int NOT NULL
 );
 
-INSERT INTO admin (name, password) VALUES ('admin', 'admin_root')
+INSERT INTO admin (login, password) VALUES ('admin', 'admin_root')

@@ -16,6 +16,9 @@
             <a :href="href" @click="navigate">Редактирование контента</a>
           </li>
         </router-link>
+        <li>
+          <a @click="logout()">Выйти</a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -25,15 +28,35 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import Admin from "../../models/admin";
 
 export default {
   name: "AppVue",
   methods: {
-    ...mapActions(["setQuestions"]),
+    ...mapActions(["setQuestions", "setActionXCSRFToken"]),
+    async logout() {
+      await Admin.AdminLogout(this.getXCSRFToken)
+        .then((response) => response.json())
+        .then((response) =>
+          response.successfully
+            ? (location.href = "/admin/login")
+            : console.log(response)
+        );
+    },
+  },
+  computed: {
+    ...mapGetters(["getXCSRFToken"]),
   },
   async created() {
     await this.setQuestions();
+    await this.setActionXCSRFToken();
   },
 };
 </script>
+
+<style scoped>
+.header_navigation__items li:last-child {
+  margin-top: 30px;
+}
+</style>

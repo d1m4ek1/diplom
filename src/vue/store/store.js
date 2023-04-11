@@ -17,6 +17,7 @@ const store = createStore({
         content: "",
         addDate: "",
       },
+      X_CSRF_TOKEN: "",
     };
   },
   getters,
