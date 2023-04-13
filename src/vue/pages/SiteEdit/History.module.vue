@@ -6,7 +6,7 @@
     <Filter :name="'history'" />
 
     <div class="history_edit_items">
-      <Loader v-if="historyEditItems.length === 0" />
+      <p v-if="historyEditItems.length === 0">История пуста</p>
       <table v-else>
         <thead>
           <th>ID</th>

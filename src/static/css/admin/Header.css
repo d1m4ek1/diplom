@@ -7,7 +7,9 @@
   display: flex;
   align-items: start;
   justify-content: start;
-  border-right: 1px solid white;
+  border-right: 1px solid #eee;
+  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.4);
+  z-index: 20;
 }
 
 .header_navigation {

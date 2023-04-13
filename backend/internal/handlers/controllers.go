@@ -44,3 +44,9 @@ func (s *Server) adminLogin() gin.HandlerFunc {
 		})
 	})
 }
+
+func (s *Server) settings() gin.HandlerFunc {
+	return gin.HandlerFunc(func(ctx *gin.Context) {
+		ctx.HTML(http.StatusOK, "admin", nil)
+	})
+}

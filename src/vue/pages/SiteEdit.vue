@@ -13,15 +13,12 @@
       </section>
       <section>
         <h2>Редактирование контента страницы</h2>
-        <Loader v-if="dataActualContent.content === ''" />
         <Editor
-          v-else
           api-key="0obopbpk2msn7rupwvdo0t2mk83kwla7kd0znsddmdd209yc"
           v-model="dataActualContent.content"
         />
       </section>
       <section>
-        <hr />
         <button @click="saveEdit()">Сохранить изменения</button>
       </section>
       <HistoryModule :actual-content-id="dataActualContent._id" />

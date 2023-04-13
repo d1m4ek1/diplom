@@ -33,6 +33,8 @@ type controllers interface {
 	admin() gin.HandlerFunc
 
 	siteEdit() gin.HandlerFunc
+
+	settings() gin.HandlerFunc
 }
 
 type Server struct {
