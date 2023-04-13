@@ -30,7 +30,8 @@ export default {
   name: "NavBar",
   methods: {
     async logout() {
-      await Admin.AdminLogout(this.getXCSRFToken)
+      await new Admin(this.getXCSRFToken)
+        .AdminLogout()
         .then((response) => response.json())
         .then((response) =>
           response.successfully

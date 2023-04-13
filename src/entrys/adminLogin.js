@@ -15,10 +15,11 @@ const authAdmin = async () => {
       await CSRF.GetToken().then((response) => (token = response.headers.get("X-CSRF-TOKEN")));
 
       if (token !== "") {
-        await Admin.AdminLogin(token, {
-          login,
-          password,
-        })
+        await new Admin(token)
+          .AdminLogin({
+            login,
+            password,
+          })
           .then((response) => response.json())
           .then((response) => {
             if (response.successfully) {

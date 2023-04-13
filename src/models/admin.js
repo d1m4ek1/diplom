@@ -18,7 +18,7 @@ class Admin {
     });
   }
 
-  static async AdminLogin(data) {
+  async AdminLogin(data) {
     return await fetch("/api/admin/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
@@ -29,7 +29,7 @@ class Admin {
     });
   }
 
-  static async AdminLogout() {
+  async AdminLogout() {
     return await fetch("/api/admin/auth/logout", {
       method: "PATCH",
       headers: {
