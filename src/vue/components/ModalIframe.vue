@@ -7,7 +7,7 @@
       </div>
       <iframe
         v-if="idhtml !== 0"
-        :src="`/iframe?idhtml=${idhtml}`"
+        :src="`/api/admin/iframe?idhtml=${idhtml}`"
         frameborder="0"
       ></iframe>
     </div>

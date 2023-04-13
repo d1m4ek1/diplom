@@ -1,7 +1,10 @@
 <template>
   <div class="container">
     <div class="content__header"><h1>Все вопросы</h1></div>
-    <div class="content">
+    <div v-if="questions === null || questions.length === 0" class="content">
+      <p>Вопрос пока нет</p>
+    </div>
+    <div v-else class="content">
       <Filter :name="'history'" />
 
       <div class="question_items">

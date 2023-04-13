@@ -13,7 +13,9 @@
       </section>
       <section>
         <h2>Редактирование контента страницы</h2>
+        <Loader v-if="dataActualContent.content === ''" />
         <Editor
+          v-else
           api-key="0obopbpk2msn7rupwvdo0t2mk83kwla7kd0znsddmdd209yc"
           v-model="dataActualContent.content"
         />
@@ -22,65 +24,8 @@
         <hr />
         <button @click="saveEdit()">Сохранить изменения</button>
       </section>
-      <section class="new_block">
-        <hr />
-        <h2>История изменений</h2>
-
-        <Filter :name="'history'" />
-
-        <div class="history_edit_items">
-          <table>
-            <thead>
-              <th>ID</th>
-              <th>Дата изменения</th>
-              <th>Просмотр изменения</th>
-              <th>Установить изменение</th>
-              <th>Удалить изменение</th>
-            </thead>
-            <tbody>
-              <template
-                v-for="(item, idx) in historyEditItems"
-                :key="`column${idx}`"
-              >
-                <tr
-                  :class="{
-                    'active-content-table': item._id === dataActualContent._id,
-                  }"
-                >
-                  <td>{{ item._id }}</td>
-                  <td><Dateui :date="item.addDate" /></td>
-                  <td>
-                    <button @click="openModal(item._id)">Просмотр</button>
-                  </td>
-                  <td>
-                    <button
-                      v-if="item._id !== dataActualContent._id"
-                      @click="setNewActualSiteContentFromHistory(item._id)"
-                    >
-                      Установить
-                    </button>
-                    <template v-else> Установлено </template>
-                  </td>
-                  <td>
-                    <button
-                      v-if="historyEditItems.length !== 1"
-                      @click="deleteSiteContentFromHistory(item._id)"
-                    >
-                      Удалить
-                    </button>
-                  </td>
-                </tr>
-              </template>
-            </tbody>
-          </table>
-        </div>
-      </section>
+      <HistoryModule :actual-content-id="dataActualContent._id" />
     </div>
-    <ModalIframeVue
-      :idhtml="forModal.idhtml"
-      :show="forModal.opened"
-      @on-close-window="onCloseWindow"
-    />
   </div>
 </template>
 
@@ -88,10 +33,10 @@
 import Editor from "@tinymce/tinymce-vue";
 import EditorAdmin from "../../models/editor";
 import Dateui from "../components/Date.vue";
-import Filter from "../components/Filter.vue";
-import { mapActions, mapGetters } from "vuex";
+import HistoryModule from "./SiteEdit/History.module.vue";
+import Loader from "../components/Loader.vue";
 
-import ModalIframeVue from "../components/ModalIframe.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "SiteEditVue",
@@ -103,40 +48,19 @@ export default {
         header: "",
         addDate: "",
       },
-      historyEditItems: [],
-      forModal: {
-        opened: false,
-        idhtml: 0,
-      },
     };
   },
   watch: {
     getActualSiteContent(newValue) {
       this.dataActualContent = { ...newValue };
     },
-    getEditItems(newValue) {
-      this.historyEditItems = newValue;
-    },
   },
   methods: {
-    ...mapActions([
-      "saveEditItem",
-      "setEditItems",
-      "setNewActualSiteContentFromHistory",
-      "deleteSiteContentFromHistory",
-    ]),
+    ...mapActions(["saveEditItem"]),
     async saveEdit() {
       this.dataActualContent.addDate = new Date().toISOString();
 
       await this.saveEditItem(this.dataActualContent);
-    },
-    openModal(id) {
-      this.forModal.idhtml = id;
-      this.forModal.opened = true;
-    },
-    onCloseWindow() {
-      this.forModal.opened = false;
-      this.forModal.content = "";
     },
   },
   async created() {
@@ -147,62 +71,21 @@ export default {
           this.dataActualContent = { ...response.data };
         }
       });
-
-    await this.setEditItems();
-
-    this.historyEditItems = this.getEditItems;
   },
   computed: {
-    ...mapGetters(["getEditItems", "getActualSiteContent"]),
+    ...mapGetters(["getActualSiteContent"]),
   },
   components: {
     Editor,
     Dateui,
-    ModalIframeVue,
-    Filter,
+    HistoryModule,
+    Loader,
   },
 };
 </script>
 
-<style scoped>
-.history_edit_items {
-  max-height: 500px;
-  overflow-y: auto;
-}
-
+<style>
 section > input {
   width: 100%;
-}
-
-table {
-  width: 100%;
-}
-
-thead {
-  background-color: rgb(230, 230, 230);
-}
-
-table,
-th,
-td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  padding: 10px;
-  text-align: center;
-}
-td > button {
-  width: 100%;
-}
-
-table tr:nth-child(even) {
-  background-color: rgb(250, 250, 250);
-}
-
-.active-content-table {
-  background-color: rgb(210, 255, 210) !important;
 }
 </style>

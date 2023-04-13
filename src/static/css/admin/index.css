@@ -3,6 +3,7 @@
 @import url(./Main.css);
 @import url(./QuestionItems.css);
 @import url(./Inputs.css);
+@import url(./Tables.css);
 
 * {
   margin: 0;

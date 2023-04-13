@@ -53,6 +53,7 @@ func (s *Server) InitServer(db *sqlx.DB) error {
 	go s.updateTemplates()
 
 	s.Router.Static("/static", "./dist/static")
+	s.Router.Static("/api/admin/static", "./dist/static")
 
 	s.Router.Use(sessions.Sessions("myssesion", store))
 

@@ -1,4 +1,8 @@
 class Admin {
+  constructor(token) {
+    this.token = token;
+  }
+
   static async GetAllQuestions() {
     return await fetch("/api/admin/all", {
       method: "GET",
@@ -14,22 +18,22 @@ class Admin {
     });
   }
 
-  static async AdminLogin(token, data) {
+  static async AdminLogin(data) {
     return await fetch("/api/admin/auth/login", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "X-CSRF-TOKEN": token,
+        "X-CSRF-TOKEN": this.token,
         "Content-Type": "application/json",
       },
     });
   }
 
-  static async AdminLogout(token) {
+  static async AdminLogout() {
     return await fetch("/api/admin/auth/logout", {
       method: "PATCH",
       headers: {
-        "X-CSRF-TOKEN": token,
+        "X-CSRF-TOKEN": this.token,
         "Content-Type": "application/json",
       },
     });
