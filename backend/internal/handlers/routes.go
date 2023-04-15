@@ -2,7 +2,7 @@ package handlers
 
 import (
 	api "diplom/backend/API"
-	"diplom/backend/middlewares"
+	"diplom/backend/internal/middlewares"
 
 	"github.com/jmoiron/sqlx"
 )

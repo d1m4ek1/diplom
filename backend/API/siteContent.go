@@ -1,7 +1,7 @@
 package api
 
 import (
-	"diplom/backend/models"
+	"diplom/backend/internal/models"
 	"html/template"
 	"log"
 	"net/http"

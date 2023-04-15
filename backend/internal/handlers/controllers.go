@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"diplom/backend/models"
+	"diplom/backend/internal/models"
 	"html/template"
 	"net/http"
 

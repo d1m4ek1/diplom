@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"diplom/backend/middlewares"
+	"diplom/backend/internal/middlewares"
 	"html/template"
 	"strings"
 
